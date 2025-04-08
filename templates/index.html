@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fire & Smoke Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #d62828;
+        }
+        form {
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        input[type="file"] {
+            margin: 15px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background: #0077b6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .video-preview {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .video-box {
+            width: 45%;
+            margin: 10px;
+        }
+        video {
+            width: 100%;
+            border: 3px solid #333;
+            border-radius: 10px;
+        }
+        .download-btn {
+            margin-top: 30px;
+        }
+        .loader {
+            display: none;
+            margin-top: 20px;
+        }
+        .loader div {
+            width: 24px;
+            height: 24px;
+            background: #d62828;
+            border-radius: 50%;
+            display: inline-block;
+            animation: bounce 0.6s infinite alternate;
+        }
+        .loader div:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loader div:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes bounce {
+            to {
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>🔥 Fire & Smoke Detection in Video 🔥</h1>
+
+<form method="post" enctype="multipart/form-data" onsubmit="showLoader()">
+    <input type="file" name="video" accept="video/*" required>
+    <br>
+    <button type="submit">Upload and Detect</button>
+
+    <div class="loader" id="loader">
+        <div></div><div></div><div></div>
+        <p style="font-weight:bold;">Processing video, please wait...</p>
+    </div>
+</form>
+
+{% if input_video and output_video %}
+<div class="video-preview">
+    <div class="video-box">
+        <h3>Original Uploaded Video</h3>
+        <video controls>
+            <source src="{{ url_for('static', filename='outputs/' + input_video) }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="video-box">
+        <h3>Video After Detection</h3>
+        <video controls>
+            <source src="{{ url_for('static', filename='outputs/' + output_video) }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+<div class="download-btn">
+    <a href="{{ url_for('download_file', filename=output_video) }}">
+        <button>⬇️ Download Processed Video</button>
+    </a>
+</div>
+{% endif %}
+
+<script>
+    function showLoader() {
+        document.getElementById("loader").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
