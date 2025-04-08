@@ -13,7 +13,7 @@ A web-based application that automatically detects fire and smoke in uploaded vi
 
 > 💻 Provides a styled web interface with loading animation for better user experience.
 ## 🚀 Demo
- <p align="center"> <img src="demos/output_video2.mp4" alt="Demo GIF" width="80%"> </p>
+ <p align="center"> <img src="demos/output_video2.gif" alt="Demo GIF" width="80%"> </p>
  
  ---
  ## 🧠 Model Information
